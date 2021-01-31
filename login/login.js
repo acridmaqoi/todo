@@ -9,7 +9,7 @@ loginButton.addEventListener("click", (e) => {
     
     if (username === "admin" && password === "admin") {
         alert("登录成功");
-        location.reload();
+        location.assign("file:///C:\\Users\\samqu\\Desktop\\project-1\\main\\list.html")
     } else {
         alert("用户名或密码错误");
     }
