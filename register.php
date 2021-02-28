@@ -1,6 +1,6 @@
 <?php
 
-require 'config/db.php';
+require './config/db.php';
 
 // Now we check if the data was submitted, isset() function will check if the data exists.
 if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
@@ -30,7 +30,15 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 			$stmt->bind_param('sss', $_POST['username'], $password, $_POST['email']);
 			$stmt->execute();
-			echo 'You have successfully registered, you can now login!';
+
+			echo 'You have successfully registered, you can now login!';	
+			echo '<script type="text/javascript">
+					setTimeout(function() {
+								window.location.href = "index.html"
+							}, 3000); 
+					</script>';
+
+
 		} else {
 			// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 			echo 'Could not prepare statement!';
@@ -42,4 +50,3 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	echo 'Could not prepare statement!';
 }
 $con->close();
-?>
