@@ -16,7 +16,11 @@ if (empty($_POST['email_confirm']) && $ok) {
     $messages[] = 'Confirm email cannot be empty!';
 }
 
-// TODO: Check if emails match
+// // TODO: Check if emails match
+if ($_POST['email'] !== $_POST['email_confirm']) {
+    $ok = false;
+    $messages[] = 'Emails do not match';
+}
 
 // validate email 
 if (!preg_match('/^\S+@\S+\.\S+$/', $_POST['email']) && $ok) {
@@ -25,13 +29,15 @@ if (!preg_match('/^\S+@\S+\.\S+$/', $_POST['email']) && $ok) {
 }
 
 // update email
-if ($stmt = $con->prepare('UPDATE accounts SET email = (?) WHERE id = (?)')) {
-    $stmt->bind_param('si', $_POST['email'], $_SESSION['id']);
-    $stmt->execute();
-
-} else {
-    $ok = false;
-    $messages[] = 'Fatal error';
+if ($ok) {
+    if ($stmt = $con->prepare('UPDATE accounts SET email = (?) WHERE id = (?)')) {
+        $stmt->bind_param('si', $_POST['email'], $_SESSION['id']);
+        $stmt->execute();
+    
+    } else {
+        $ok = false;
+        $messages[] = 'Fatal error';
+    }
 }
 
 echo json_encode(

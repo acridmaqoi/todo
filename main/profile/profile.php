@@ -78,7 +78,6 @@ require '../db_utils.php'
                         form.messages.removeChild(form.messages.firstChild);
             }
 
-            
             if (responseObject.ok) {
                 const li = document.createElement('p');
                 li.textContent = "Done";
