@@ -15,7 +15,7 @@ require 'C:\xampp\htdocs\project-1\main\db_utils.php';
 </head>
 
 <body>
-    <nav class="navtop">
+    <nav class="topnav">
         <div>
             <h1>清单</h1>
             <a href="profile/profile.php"><?php echo get_username() ?></a>

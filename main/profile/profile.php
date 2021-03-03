@@ -31,11 +31,80 @@ require '../db_utils.php'
         </table>
 
         <p>Change email address:</p>
-        <form action="change_email.php" method="post" autocomplete="off">
-            <input type="email" name="email" placeholder="Email" id="email" required>
-            <input type="email" name="email_confirm" placeholder="Confirm email" id="email" required>
-            <input type="submit" value="Confirm">
-        </form>
+
+        <div class="form">
+            <input placeholder="Email" id="email" spellcheck="false">
+            <input placeholder="Confirm email" id="email_confirm">
+            <button type="submit" id="btn-submit">Confirm</button>
+            <ul id="form-messages"></ul>
+        </div>
+        <script>
+            const form = {
+            email: document.getElementById('email'),
+            email_confirm: document.getElementById('email_confirm'),
+            submit: document.getElementById('btn-submit'),
+            messages: document.getElementById('form-messages')
+        };
+
+        form.submit.addEventListener('click', () => {
+            const request = new XMLHttpRequest();
+
+            request.onload = () => {
+                let responseObject = null;
+
+                try {
+                    // response json from server
+                    responseObject = JSON.parse(request.responseText)
+                } catch (e) {
+                    console.error('Could not parse JSON!')
+                }
+
+                if (responseObject) {
+                    handleResponse(responseObject)
+                }
+            };
+
+            const requestData = `email=${form.email.value}&email_confirm=${form.email_confirm.value}`;
+
+            // send to server
+            request.open('post', 'change_email.php');
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.send(requestData);
+        });
+
+        function handleResponse (responseObject) {
+            //prevents duplicate messages
+            while (form.messages.firstChild) {
+                        form.messages.removeChild(form.messages.firstChild);
+            }
+
+            
+            if (responseObject.ok) {
+                const li = document.createElement('p');
+                li.textContent = "Done";
+                form.messages.append(li);
+            } else {
+                responseObject.messages.forEach((message) => {
+                    const li = document.createElement('p');
+                    console.log(message)
+                    li.textContent = message;
+                    form.messages.appendChild(li);
+                });
+            }
+
+            
+
+
+
+
+
+
+            
+        }
+
+        
+        </script>
+
     </div>
 
 </body>

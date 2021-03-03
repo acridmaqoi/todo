@@ -3,22 +3,40 @@
 require '../../controllers/auth.php';
 require '../../config/db.php';
 
-// Now we check if the data was submitted, isset() function will check if the data exists.
-if (!isset($_POST['email'], $_POST['email_confirm'])) {
-	// Could not get the data that should have been sent.
-	exit('Please complete the registration form!');
-}
+$ok = true;
+$messages = array();
+
 // Make sure the submitted registration values are not empty.
-if (empty($_POST['email']) || empty($_POST['email_confirm']) || empty($_POST['email'])) {
-	// One or more values are empty.
-	exit('Please complete the registration form');
+if (empty($_POST['email'])) {
+    $ok = false;
+    $messages[] = 'Email cannot be empty!';
+}
+if (empty($_POST['email_confirm']) && $ok) {
+    $ok = false;
+    $messages[] = 'Confirm email cannot be empty!';
 }
 
+// TODO: Check if emails match
+
+// validate email 
+if (!preg_match('/^\S+@\S+\.\S+$/', $_POST['email']) && $ok) {
+    $ok = false;
+    $messages[] = 'Please enter a valid email address';
+}
+
+// update email
 if ($stmt = $con->prepare('UPDATE accounts SET email = (?) WHERE id = (?)')) {
     $stmt->bind_param('si', $_POST['email'], $_SESSION['id']);
     $stmt->execute();
 
-    echo "done";
 } else {
-    echo "error";
+    $ok = false;
+    $messages[] = 'Fatal error';
 }
+
+echo json_encode(
+    array(
+        'ok' => $ok,
+        'messages' => $messages
+    )
+);
