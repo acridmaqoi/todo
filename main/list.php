@@ -3,7 +3,6 @@ require '../controllers/auth.php';
 require 'C:\xampp\htdocs\project-1\main\db_utils.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +14,7 @@ require 'C:\xampp\htdocs\project-1\main\db_utils.php';
 </head>
 
 <body>
-    <nav class="topnav">
+    <nav class="navtop">
         <div>
             <h1>清单</h1>
             <a href="profile/profile.php"><?php echo get_username() ?></a>
