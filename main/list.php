@@ -15,12 +15,10 @@ require 'C:\xampp\htdocs\project-1\main\db_utils.php';
 
 <body>
     <nav class="navtop">
-        <div>
-            <h1>清单</h1>
-            <a href="profile/profile.php"><?php echo get_username() ?></a>
-            <a href="logout.php">登出</a>
-        </div>
+        <a href="profile/profile.php"><?php echo get_username() ?></a>
+        <a href="logout.php">登出</a>
     </nav>
+    <h1>清单</h1>
     <div class="content">
         <input type="text" id="myInput" placeholder="标题...">
         <button onclick="newElement()" class="addBtn">加</button>
