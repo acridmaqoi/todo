@@ -1,4 +1,4 @@
-<?php 
+<?php
 require '../../controllers/auth.php';
 require '../db_utils.php'
 ?>
@@ -41,69 +41,66 @@ require '../db_utils.php'
             <ul id="form-messages"></ul>
         </div>
         <script>
+
+            // allows enter button to be used when submitting form
+            document.querySelector("#email_confirm").addEventListener("keyup", event => {
+                if(event.key !== "Enter") return;
+                document.querySelector("#btn-submit").click();
+                event.preventDefault();
+            });
+
             const form = {
-            email: document.getElementById('email'),
-            email_confirm: document.getElementById('email_confirm'),
-            submit: document.getElementById('btn-submit'),
-            messages: document.getElementById('form-messages')
-        };
-
-        form.submit.addEventListener('click', () => {
-            const request = new XMLHttpRequest();
-
-            request.onload = () => {
-                let responseObject = null;
-
-                try {
-                    // response json from server
-                    responseObject = JSON.parse(request.responseText)
-                } catch (e) {
-                    console.error('Could not parse JSON!')
-                }
-
-                if (responseObject) {
-                    handleResponse(responseObject)
-                }
+                email: document.getElementById('email'),
+                email_confirm: document.getElementById('email_confirm'),
+                submit: document.getElementById('btn-submit'),
+                messages: document.getElementById('form-messages')
             };
 
-            const requestData = `email=${form.email.value}&email_confirm=${form.email_confirm.value}`;
+            form.submit.addEventListener('click', () => {
+                const request = new XMLHttpRequest();
 
-            // send to server
-            request.open('post', 'change_email.php');
-            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            request.send(requestData);
-        });
+                request.onload = () => {
+                    let responseObject = null;
 
-        function handleResponse (responseObject) {
-            //prevents duplicate messages
-            while (form.messages.firstChild) {
-                        form.messages.removeChild(form.messages.firstChild);
-            }
+                    try {
+                        // response json from server
+                        responseObject = JSON.parse(request.responseText)
+                    } catch (e) {
+                        console.error('Could not parse JSON!')
+                    }
 
-            if (responseObject.ok) {
-                const li = document.createElement('p');
-                li.textContent = "Done";
-                form.messages.append(li);
-            } else {
-                responseObject.messages.forEach((message) => {
+                    if (responseObject) {
+                        handleResponse(responseObject)
+                    }
+                };
+
+                const requestData = `email=${form.email.value}&email_confirm=${form.email_confirm.value}`;
+
+                // send to server
+                request.open('post', 'change_email.php');
+                request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                request.send(requestData);
+            });
+
+            function handleResponse(responseObject) {
+                //prevents duplicate messages
+                while (form.messages.firstChild) {
+                    form.messages.removeChild(form.messages.firstChild);
+                }
+
+                if (responseObject.ok) {
                     const li = document.createElement('p');
-                    console.log(message)
-                    li.textContent = message;
-                    form.messages.appendChild(li);
-                });
+                    li.textContent = "Done";
+                    form.messages.append(li);
+                } else {
+                    responseObject.messages.forEach((message) => {
+                        const li = document.createElement('p');
+                        console.log(message)
+                        li.textContent = message;
+                        form.messages.appendChild(li);
+                    });
+                }
             }
-
-            
-
-
-
-
-
-
-            
-        }
-
-        
         </script>
 
     </div>
