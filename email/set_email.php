@@ -38,8 +38,3 @@ class SetEmail {
         // echo 'Check your email for a verification link.';
     }
 }
-
-
-
-
-

@@ -4,22 +4,22 @@ require '../db_utils.php'
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title><?= get_username() ?> - profile</title>
 </head>
 
 <body>
-    <nav class="navtop">
-        <a href="../list.php">Home</a>
-        <a href="../logout.php">登出</a>
+    <nav class='navtop'>
+        <a href='../list.php'>home</a>
+        <a href='../logout.php'>登出</a>
     </nav>
 
-    <div class="content">
+    <div class='content'>
         <p>Your account details are below:</p>
         <table>
             <tr>
@@ -34,18 +34,18 @@ require '../db_utils.php'
 
         <p>Change email address:</p>
 
-        <div class="form">
-            <input placeholder="Email" id="email" spellcheck="false">
-            <input placeholder="Confirm email" id="email_confirm">
-            <button type="submit" id="btn-submit">Confirm</button>
-            <ul id="form-messages"></ul>
+        <div class='form'>
+            <input placeholder='Email' id='email' spellcheck='false'>
+            <input placeholder='Confirm email' id='email_confirm'>
+            <button type='submit' id='btn-submit'>Confirm</button>
+            <ul id='form-messages'></ul>
         </div>
         <script>
 
             // allows enter button to be used when submitting form
-            document.querySelector("#email_confirm").addEventListener("keyup", event => {
-                if(event.key !== "Enter") return;
-                document.querySelector("#btn-submit").click();
+            document.querySelector('#email_confirm').addEventListener('keyup', event => {
+                if(event.key !== 'Enter') return;
+                document.querySelector('#btn-submit').click();
                 event.preventDefault();
             });
 
@@ -92,7 +92,7 @@ require '../db_utils.php'
 
                 if (responseObject.ok) {
                     const li = document.createElement('p');
-                    li.textContent = "Check your email for a verification link";
+                    li.textContent = 'Check your email for a verification link';
                     form.messages.append(li);
                 } else {
                     responseObject.messages.forEach((message) => {
