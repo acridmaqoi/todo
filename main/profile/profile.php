@@ -35,9 +35,9 @@ require '../db_utils.php'
         <p>Change email address:</p>
 
         <div class="form">
-            <input placeholder="Email" id="email" spellcheck="false">
-            <input placeholder="Confirm email" id="email_confirm">
-            <button type="submit" id="btn-submit">Confirm</button>
+            <input id="email" placeholder="Email" spellcheck="false">
+            <input id="email_confirm" placeholder="Confirm email">
+            <button id="btn-submit" type="submit" >Confirm</button>
             <ul id="form-messages"></ul>
         </div>
         <script>
