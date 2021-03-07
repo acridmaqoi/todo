@@ -57,6 +57,8 @@ require '../db_utils.php'
             };
 
             form.submit.addEventListener('click', () => {
+                console.log('confirming email...')
+
                 const request = new XMLHttpRequest();
 
                 request.onload = () => {
@@ -90,7 +92,7 @@ require '../db_utils.php'
 
                 if (responseObject.ok) {
                     const li = document.createElement('p');
-                    li.textContent = "Done";
+                    li.textContent = "Check your email for a verification link";
                     form.messages.append(li);
                 } else {
                     responseObject.messages.forEach((message) => {

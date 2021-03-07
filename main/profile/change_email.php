@@ -2,11 +2,12 @@
 
 require '../../controllers/auth.php';
 require '../../config/db.php';
+require '../../email/set_email.php';
 
 $ok = true;
 $messages = array();
 
-// Make sure the submitted registration values are not empty.
+// make sure the submitted registration values are not empty
 if (empty($_POST['email'])) {
     $ok = false;
     $messages[] = 'Email cannot be empty!';
@@ -16,7 +17,7 @@ if (empty($_POST['email_confirm']) && $ok) {
     $messages[] = 'Confirm email cannot be empty!';
 }
 
-// // TODO: Check if emails match
+// check if emails match
 if ($_POST['email'] !== $_POST['email_confirm']) {
     $ok = false;
     $messages[] = 'Emails do not match';
@@ -30,14 +31,7 @@ if (!preg_match('/^\S+@\S+\.\S+$/', $_POST['email']) && $ok) {
 
 // update email
 if ($ok) {
-    if ($stmt = $con->prepare('UPDATE accounts SET email = (?) WHERE id = (?)')) {
-        $stmt->bind_param('si', $_POST['email'], $_SESSION['id']);
-        $stmt->execute();
-    
-    } else {
-        $ok = false;
-        $messages[] = 'Fatal error';
-    }
+    $set_email = new SetEmail($_POST['email'], $_SESSION['id']);
 }
 
 echo json_encode(
