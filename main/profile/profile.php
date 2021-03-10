@@ -79,7 +79,7 @@ require '../db_utils.php'
                 const requestData = `email=${form.email.value}&email_confirm=${form.email_confirm.value}`;
 
                 // send to server
-                request.open('post', 'change_email.php');
+                request.open('post', '../../account/email/set_validate_email.php');
                 request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 request.send(requestData);
             });
