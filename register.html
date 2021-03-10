@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Register</title>
+</head>
+
+<body>
+	<div class="register">
+		<h1>Register</h1>
+		<!-- <form action="account/register.php" method="post" autocomplete="off">
+			<input type="text" name="username" placeholder="Username" id="username" required>
+			<input type="password" name="password" placeholder="Password" id="password" required>
+			<input type="password" name="password" placeholder="Confirm password" id="password" required>
+			<input type="email" name="email" placeholder="Email" id="email" required>
+			<input type="submit" value="Register">
+		</form> -->
+
+
+		<div class="form">
+			<input id="username" placeholder="Username" spellcheck="false">
+			<input id="password" placeholder="Password" type='password'>
+			<input id="password_confirm" placeholder="Confirm password" type='password'>
+			<input id="email" placeholder="Email" spellcheck="false">
+			<button id="btn-submit" type="submit">Confirm</button>
+			<ul id="form-messages"></ul>
+		</div>
+
+		<script>
+			// allows enter button to be used when submitting form
+			document.querySelector("#email").addEventListener("keyup", event => {
+				if (event.key !== "Enter") return;
+				document.querySelector("#btn-submit").click();
+				event.preventDefault();
+			});
+
+			const form = {
+				username: document.getElementById('username'),
+				password: document.getElementById('password'),
+				password_confirm: document.getElementById('password_confirm'),
+				email: document.getElementById('email'),
+				submit: document.getElementById('btn-submit'),
+				messages: document.getElementById('form-messages')
+			};
+
+			form.submit.addEventListener('click', () => {
+				const request = new XMLHttpRequest();
+
+				request.onload = () => {
+					let responseObject = null;
+
+					try {
+						// response json from server
+						responseObject = JSON.parse(request.responseText)
+					} catch (e) {
+						console.error('Could not parse JSON!')
+					}
+
+					if (responseObject) {
+						handleResponse(responseObject)
+					}
+				};
+
+				const requestData = `username=${form.username.value}&password=${form.password.value}
+					&password_confirm=${form.password_confirm.value}&email=${form.email.value}`;
+
+				// send to server
+				request.open('post', 'account/register.php');
+				request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				request.send(requestData);
+			});
+
+			function handleResponse(responseObject) {
+				//prevents duplicate messages
+				while (form.messages.firstChild) {
+					form.messages.removeChild(form.messages.firstChild);
+				}
+
+				if (responseObject.ok) {
+					// const li = document.createElement('p');
+                    // li.textContent = "Check your email for a verification link";
+                    // form.messages.append(li);
+
+					location.href = 'index.php?verify_email'
+				} else {
+					// user entered incorrect details
+					responseObject.messages.forEach((message) => {
+						const li = document.createElement('p');
+						console.log(message)
+						li.textContent = message;
+						form.messages.appendChild(li);
+					});
+				}
+			}
+		</script>
+
+
+	</div>
+</body>
+
+</html>
