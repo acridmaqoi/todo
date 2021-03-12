@@ -7,10 +7,16 @@ $ok = true; // tracks if tests have passed
 $messages = array(); // error messages
 
 // Now we check if the data was submitted, isset() function will check if the data exists.
-if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
+if (!isset($_POST['username'], $_POST['password'], $_POST['password_confirm'], $_POST['email'])) {
 	// Could not get the data that should have been sent.
 	die('Error');
 }
+
+$username         = $_POST['username'];
+$password 		  = $_POST['password'];
+$password_confirm = $_POST['password_confirm'];
+$email 			  = $_POST['email'];
+
 // Make sure the submitted registration values are not empty.
 if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
 	// One or more values are empty.
@@ -23,10 +29,16 @@ if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['emai
 		$messages[] = 'Invalid email';
 	}
 
-	// password validation
-	if (!preg_match('@^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$@', $_POST['email'])) {
+	// check passwords match
+	if (strcmp($password, $password_confirm) != 0) {
 		$ok = false;
-		$messages[] = 'Password must be at least 8 characters long and have 1 uppercase letter, 1 lowercase letter, 1 digit and one special character.';
+		$messages[] = "Passwords don't match ".$password." ".$password_confirm;
+	} else {
+		// password validation
+		if (!preg_match('/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/', $_POST['password'])) {
+			$ok = false;
+			$messages[] = 'Password must be at least 8 characters long and have 1 uppercase letter, 1 lowercase letter, 1 digit and one special character';
+		}
 	}
 }
 
