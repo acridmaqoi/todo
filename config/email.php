@@ -16,7 +16,6 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         
     $mail->Port       = 465;                                    
 
-    //Recipients
     $mail->setFrom('samquinn120@gmail.com', 'Mailer');
 } catch (Exception $e) {
     die('error setting email settings');
