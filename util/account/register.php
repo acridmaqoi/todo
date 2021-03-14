@@ -71,7 +71,7 @@ if ($stmt = $con->prepare('SELECT id FROM accounts WHERE email = ?')) {
 
 if ($ok) {
 	//insert new account into db
-	if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code, activated) VALUES (?, ?, ?, ?, ?)')) {
+	if ($stmt = $con->prepare('INSERT INTO accounts (username, password, pending_email, activation_code, activated) VALUES (?, ?, ?, ?, ?)')) {
 		// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		$zero = 0;

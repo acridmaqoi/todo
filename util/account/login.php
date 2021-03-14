@@ -14,7 +14,7 @@ if (!isset($_POST['username'], $_POST['password'])) {
 
 // fetch user details from db
 $stmt;
-if ($ok && ($stmt = $con->prepare('SELECT id, password, email, activated FROM accounts WHERE username = ?'))) {
+if ($ok && ($stmt = $con->prepare('SELECT id, password, email, pending_email, activated FROM accounts WHERE username = ?'))) {
 	$stmt->bind_param('s', $_POST['username']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
@@ -31,7 +31,7 @@ $activated = false;
 
 // check username
 if ($ok && $stmt->num_rows > 0) {
-	$stmt->bind_result($id, $password, $email, $activated);
+	$stmt->bind_result($id, $password, $email, $pending_email, $activated);
 	$stmt->fetch();
 } else {
 	$ok = false;
@@ -47,7 +47,7 @@ if ($ok && !password_verify($_POST['password'], $password)) {
 // check acc is activated
 if ($ok && !$activated ) {
 	$ok = false;
-	$messages[] = 'Please check '.$email.' for a verification email';
+	$messages[] = 'Please check '.$pending_email.' for a verification email';
 }
 
 // all checks are passed, so can login
