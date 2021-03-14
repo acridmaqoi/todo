@@ -6,7 +6,7 @@
 
 require_once (__DIR__ . '/../../controllers/auth.php');
 require_once (__DIR__ . '/../../config/db.php');
-require_once (__DIR__ . '/../../account/email/set_email.php');
+require_once (__DIR__ . '/email/set_email.php');
 
 
 $ok = true;

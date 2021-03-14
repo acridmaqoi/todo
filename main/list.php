@@ -1,8 +1,9 @@
 <?php
 
-require_once '../config/db.php';
 require '../controllers/auth.php';
-require 'C:\xampp\htdocs\project-1\main\db_utils.php';
+
+require_once '../config/db.php';
+require_once '../util/db_utils.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,7 @@ require 'C:\xampp\htdocs\project-1\main\db_utils.php';
 <body>
     <nav class="navtop">
         <a href="profile/profile.php"><?php echo get_username() ?></a>
-        <a href="logout.php">登出</a>
+        <a href="../util/account/logout.php">登出</a>
     </nav>
 
     <h1>清单</h1>
@@ -28,6 +29,8 @@ require 'C:\xampp\htdocs\project-1\main\db_utils.php';
         <button id="btn-submit" type="submit" class="addBtn">加</button>
         <ul id="form-messages"></ul>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script>
         // allows enter button to be used when submitting form

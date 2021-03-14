@@ -59,7 +59,7 @@
                 const requestData = `username=${form.username.value}&password=${form.password.value}`;
 
                 // send to server
-                request.open('post', 'account/login.php');
+                request.open('post', 'util/account/login.php');
                 request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 request.send(requestData);
             });

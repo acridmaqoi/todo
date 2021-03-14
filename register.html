@@ -56,7 +56,7 @@
 				const requestData = `username=${form.username.value}&password=${form.password.value}&password_confirm=${form.password_confirm.value}&email=${form.email.value}`;
 
 				// send to server
-				request.open('post', 'account/register.php');
+				request.open('post', 'util/account/register.php');
 				request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				request.send(requestData);
 			});

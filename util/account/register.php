@@ -1,6 +1,6 @@
 <?php
 
-require '../config/db.php';
+require '../../config/db.php';
 require 'email/set_email.php';
 
 $ok = true; // tracks if tests have passed

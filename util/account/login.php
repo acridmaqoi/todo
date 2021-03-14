@@ -1,6 +1,6 @@
 <?php
 
-require '../config/db.php';
+require '../../config/db.php';
 
 $ok = true; // tracks if tests have passed
 $messages = array(); // error messages

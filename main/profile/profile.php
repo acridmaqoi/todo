@@ -1,6 +1,6 @@
 <?php
 require '../../controllers/auth.php';
-require '../db_utils.php'
+require '../../util/db_utils.php'
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ require '../db_utils.php'
 <body>
     <nav class="navtop">
         <a href="../list.php">home</a>
-        <a href="../logout.php">登出</a>
+        <a href="../../util/account/logout.php">登出</a>
     </nav>
 
     <div class="content">
@@ -78,7 +78,7 @@ require '../db_utils.php'
                 const requestData = `email=${form.email.value}&email_confirm=${form.email_confirm.value}`;
 
                 // send to server
-                request.open('post', '../../account/email/set_validate_email.php');
+                request.open('post', '../../util/account/change_email.php');
                 request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 request.send(requestData);
             });
