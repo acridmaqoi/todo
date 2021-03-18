@@ -23,9 +23,10 @@ if (mysqli_num_rows($data) > 0) {
 
 <li>
     <i id="id" data-id="<?php echo $row['id']; ?>"></i>
+
+    <input id="complete-btn" type="checkbox" <?php if ($row['completed']) {echo 'checked';} ?>>
     <i class="text"><?php echo $row['title']; ?></i>
     <i id="remove-btn">x</i>
-    <i id="complete-btn">complete task</i>
 </li>
  
 <?php }

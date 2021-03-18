@@ -111,7 +111,7 @@ require_once '../util/db_utils.php';
                 });
             });
 
-            // check task
+            // check/uncheck task
             $(document).on("click", "#complete-btn", function(e) {
                 var id = $(this).parent().find("#id").data('id');
 

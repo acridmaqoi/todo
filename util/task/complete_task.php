@@ -13,7 +13,7 @@ if (!isset($_POST['id'])) {
 $id = $_POST['id'];
 
 // insert task into db
-if ($ok && ($stmt = $con->prepare('UPDATE tasks SET completed = 1 WHERE id = (?)'))) {
+if ($ok && ($stmt = $con->prepare('UPDATE tasks SET completed = !completed WHERE id = (?)'))) {
     $stmt->bind_param('i', $id);
     $stmt->execute();
 }
