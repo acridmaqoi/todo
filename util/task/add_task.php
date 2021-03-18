@@ -1,6 +1,6 @@
 <?php
 
-require_once "../config/db.php";
+require_once "../../config/db.php";
 
 $ok = true;
 $messages = array();
@@ -18,11 +18,18 @@ if (empty($title)) {
     $messages[] = 'Enter a task';
 }
 
-// insert task into db
-if ($ok && ($stmt = $con->prepare('INSERT INTO TASKS (title, user_id) VALUES (?, ?)'))) {
-    $stmt->bind_param('si', $title, $_SESSION["id"]);
-    $stmt->execute();
+
+if ($ok) {
+    // insert task into db
+    if ($stmt = $con->prepare('INSERT INTO TASKS (title, user_id) VALUES (?, ?)')) {
+        $stmt->bind_param('si', $title, $_SESSION["id"]);
+        $stmt->execute();
+    } else {
+        $ok = false;
+        $messages[] = 'An unexpected error occoured please try again later';
+    }
 }
+
 
 echo json_encode(
     array(

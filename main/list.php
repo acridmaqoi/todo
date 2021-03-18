@@ -22,100 +22,125 @@ require_once '../util/db_utils.php';
         <a href="../util/account/logout.php">登出</a>
     </nav>
 
-    <h1>清单</h1>
+    <h1>Tasks</h1>
 
-    <div class="form">
-        <input id="title" type="text" placeholder="标题...">
-        <button id="btn-submit" type="submit" class="addBtn">加</button>
-        <ul id="form-messages"></ul>
+    <div class="content">
+        <div class="form">
+            <input id="task_title" type="text" placeholder="标题...">
+            <button id="add_btn" type="submit" class="addBtn">加</button>
+            <ul id="form_messages"></ul>
+        </div>
+
+        <ul id="myUL">
+
+        </ul>
     </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script>
-        // allows enter button to be used when submitting form
-        document.querySelector("#title").addEventListener("keyup", event => {
-            if (event.key !== "Enter") return;
-            document.querySelector("#btn-submit").click();
-            event.preventDefault();
-        });
-
-        const form = {
-            title: document.getElementById('title'),
-            submit: document.getElementById('btn-submit'),
-            messages: document.getElementById('form-messages')
-        };
-
-        form.submit.addEventListener('click', () => {
-            const request = new XMLHttpRequest();
-            const requestData = `title=${form.title.value}`;
-
-            request.onload = () => {
-                let responseObject = null;
-
-                try {
-                    // response json from server
-                    responseObject = JSON.parse(request.responseText)
-                } catch (e) {
-                    console.error('Could not parse JSON!')
-                }
-
-                if (responseObject) {
-                    handleResponse(responseObject)
-                }
-            };
-
-            // send to server
-            request.open('post', '../account/add_task.php');
-            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            request.send(requestData);
-        });
-
-        function handleResponse(responseObject) {
-            //prevents duplicate messages
-            while (form.messages.firstChild) {
-                form.messages.removeChild(form.messages.firstChild);
-            }
-
-            if (!responseObject.ok) {
-                responseObject.messages.forEach((message) => {
-                    const li = document.createElement('p');
-                    console.log(message)
-                    li.textContent = message;
-                    form.messages.appendChild(li);
+        $(document).ready(function() {
+            // show tasks
+            function loadTasks() {
+                $.ajax({
+                    url: "../util/task/get_tasks.php",
+                    type: "POST",
+                    data: {
+                        id: "<?php $_SESSION['id'] ?>"
+                    },
+                    success: function(data) {
+                        $("#myUL").html(data);
+                    }
                 });
             }
-        }
+
+            loadTasks()
+
+            // add task
+            $("#task_title").on("keypress", function(e) {
+                if (e.keyCode == 13) {
+                    $("#add_btn").click(); // allow enter button to be used
+                }
+            });
+
+            $("#add_btn").on("click", function(e) {
+                e.preventDefault();
+
+                var title = $("#task_title").val();
+
+                $.ajax({
+                    url: "../util/task/add_task.php",
+                    type: "POST",
+                    data: {
+                        title: title
+                    },
+                    success: function(data) {
+                        loadTasks(); // reload tasks every time new task is added
+                        $("#task_title").val(''); // remove task from input field once added
+
+                        $("#form_messages").empty();
+                        // get response
+                        parsed_data = jQuery.parseJSON(data);
+                        parsed_data.messages.forEach((message) => {
+                            // display error messages
+                            $("#form_messages").append(message);
+                        });
+                    }
+                });
+            });
+
+            // remove task
+            $(document).on("click", "#remove-btn", function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: "../util/task/delete_task.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        loadTasks();
+                        if (data == 0) {
+                            alert("Something wrong went. Please try again.");
+                        }
+                    }
+                });
+            });
+
+            // check task
+            $(document).on("click", "#complete-btn", function(e) {
+                var id = $(this).parent().find("#id").data('id');
+
+                $.ajax({
+                    url: "../util/task/complete_task.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        loadTasks();
+
+                        // clear prev messages
+                        $("#form_messages").empty();
+                        // get response messages
+                        parsed_data = jQuery.parseJSON(data);
+                        parsed_data.messages.forEach((message) => {
+                            // display messages
+                            $("#form_messages").append(message);
+                        });
+                    }
+                })
+            })
+
+        });
     </script>
 
 
 
-    <div class="list">
-
-        <ul id="myUL">
-
-            <?php
-
-            $tasks = mysqli_query($con, "SELECT * FROM tasks WHERE user_id = " . $_SESSION["id"]);
-
-            $i = 1;
-            while ($row = mysqli_fetch_array($tasks)) {
-
-            
-            ?>
-
-                <li><?php echo $i; ?></li>
-                <!-- <li class="checked">Pay bills</li>
-                <li>Meet George</li>
-                <li>Buy eggs</li>
-                <li>Read a book</li>
-                <li>Organize office</li> -->
-        </ul>
-    <?php $i++;
-            } ?>
-
-    <script defer src="list.js"></script>
-    </div>
 </body>
 
 </html>
