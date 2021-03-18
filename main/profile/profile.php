@@ -107,8 +107,8 @@ require '../../util/db_utils.php'
         <p>Change password:</p>
 
         <div class="form">
-            <input id="password" placeholder="Email" spellcheck="false">
-            <input id="password_confirm" placeholder="Confirm email">
+            <input id="password" placeholder="Password" spellcheck="false">
+            <input id="password_confirm" placeholder="Confirm password">
             <button id="btn-submit" type="submit">Confirm</button>
             <ul id="form-messages"></ul>
         </div>
@@ -121,8 +121,8 @@ require '../../util/db_utils.php'
             });
 
             const form = {
-                email: document.getElementById('email'),
-                email_confirm: document.getElementById('email_confirm'),
+                password: document.getElementById('email'),
+                password_confirm: document.getElementById('password_confirm'),
                 submit: document.getElementById('btn-submit'),
                 messages: document.getElementById('form-messages')
             };
