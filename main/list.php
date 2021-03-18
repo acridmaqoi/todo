@@ -94,7 +94,7 @@ require_once '../util/db_utils.php';
             // remove task
             $(document).on("click", "#remove-btn", function(e) {
                 e.preventDefault();
-                var id = $(this).data('id');
+                var id = $(this).parent().find("#id").data('id');
 
                 $.ajax({
                     url: "../util/task/delete_task.php",
