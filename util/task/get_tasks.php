@@ -12,20 +12,25 @@ if (!isset($_POST['id'])) {
 
 $id = $_POST['id'];
 
-$data = mysqli_query($con, "SELECT * FROM tasks");
+if ($stmt = $con->prepare('SELECT id, title, completed FROM tasks WHERE user_id = (?)')) {
+    $stmt->bind_param('i', $_SESSION['id']);
+    $stmt->bind_result($id, $title, $completed);
+    $stmt->execute();
+    $stmt->store_result();
+} else {
+    $ok = false;
+    $messages[] = 'An unexpected error occoured please try again later';
+}
 
-?>
-
-<?php
-if (mysqli_num_rows($data) > 0) {
-    while ($row = mysqli_fetch_assoc($data)) {
+if ($stmt->num_rows() > 0) {
+    while ($row = $stmt->fetch()) {
 ?>
 
 <li>
-    <i id="id" data-id="<?php echo $row['id']; ?>"></i>
+    <i id="id" data-id="<?php echo $id; ?>"></i>
 
-    <input id="complete-btn" type="checkbox" <?php if ($row['completed']) {echo 'checked';} ?>>
-    <i class="text"><?php echo $row['title']; ?></i>
+    <input id="complete-btn" type="checkbox" <?php if ($completed) {echo 'checked';} ?>>
+    <i class="text"><?php echo $title; ?></i>
     <i id="remove-btn">x</i>
 </li>
  
