@@ -1,6 +1,6 @@
 <?php
 
-require '../../config/db.php';
+require '../../../config/db.php';
 
 if(!isset($_GET['vkey'])) {
     die("no vkey provided");
