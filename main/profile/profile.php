@@ -108,72 +108,48 @@ require '../../util/db_utils.php'
 
         <div class="form">
             <input id="password" placeholder="Password" spellcheck="false">
-            <input id="password_confirm" placeholder="Confirm password">
-            <button id="btn-submit" type="submit">Confirm</button>
-            <ul id="form-messages"></ul>
+            <input id="new_password" placeholder="New password">
+            <input id="new_password_confirm" placeholder="Confirm new password">
+
+            <button id="add_btn" type="submit">Confirm</button>
+            <ul id="password-form-messages"></ul>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
-            // allows enter button to be used when submitting form
-            document.querySelector("#email_confirm").addEventListener("keyup", event => {
-                if (event.key !== "Enter") return;
-                document.querySelector("#btn-submit").click();
-                event.preventDefault();
+            $("#new_password_confirm").on("keypress", function(e) {
+                if (e.keyCode == 13) {
+                    $("#add_btn").click(); // allow enter button to be used
+                }
             });
 
-            const form = {
-                password: document.getElementById('email'),
-                password_confirm: document.getElementById('password_confirm'),
-                submit: document.getElementById('btn-submit'),
-                messages: document.getElementById('form-messages')
-            };
+             $("#add_btn").on("click", function(e) {
+                e.preventDefault();
 
-            form.submit.addEventListener('click', () => {
-                console.log('confirming email...')
+                var password = $("#password").val();
+                var new_password = $("#new_password").val();
+                var new_password_confirm = $("#new_password_confirm").val();
 
-                const request = new XMLHttpRequest();
-
-                request.onload = () => {
-                    let responseObject = null;
-
-                    try {
-                        // response json from server
-                        responseObject = JSON.parse(request.responseText)
-                    } catch (e) {
-                        console.error('Could not parse JSON!')
+                $.ajax({
+                    url: "../../util/account/change_password.php",
+                    type: "POST",
+                    data: {
+                        password: password,
+                        new_password: new_password,
+                        new_password_confirm: new_password_confirm
+                    },
+                    success: function(data) {
+                        $("#password-form-messages").empty();
+                        // get response
+                        parsed_data = jQuery.parseJSON(data);
+                        parsed_data.messages.forEach((message) => {
+                            // display error messages
+                            $("#password-form-messages").append(message);
+                            // $(this).parent().find("#form-messages").append(message);
+                        });
                     }
-
-                    if (responseObject) {
-                        handleResponse(responseObject)
-                    }
-                };
-
-                const requestData = `email=${form.email.value}&email_confirm=${form.email_confirm.value}`;
-
-                // send to server
-                request.open('post', '../../account/email/set_validate_email.php');
-                request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                request.send(requestData);
+                });
             });
-
-            function handleResponse(responseObject) {
-                //prevents duplicate messages
-                while (form.messages.firstChild) {
-                    form.messages.removeChild(form.messages.firstChild);
-                }
-
-                if (responseObject.ok) {
-                    const li = document.createElement('p');
-                    li.textContent = "Check your email for a verification link";
-                    form.messages.append(li);
-                } else {
-                    responseObject.messages.forEach((message) => {
-                        const li = document.createElement('p');
-                        console.log(message)
-                        li.textContent = message;
-                        form.messages.appendChild(li);
-                    });
-                }
-            }
         </script>
 
     </div>
