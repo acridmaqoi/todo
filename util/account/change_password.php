@@ -32,13 +32,13 @@ if ($ok) {
         $stmt->execute();
         $stmt->store_result();
     
-        if (!strcmp($password, $current_password)) {
+        if (strcmp($password, $current_password) !== 0) {
             $ok = false;
-            $messages = 'Password incorrect';
+            $messages[] = 'Password incorrect';
         }
     } else {
         $ok = false;
-        $messages = 'db error';
+        $messages[] = 'db error';
     }
 }
 
@@ -46,12 +46,12 @@ if ($ok) {
 if ($ok) {
     if (strcmp($new_password, $new_password_confirm) != 0) {
         $ok = false;
-        $messages[] = "New passwords don't match ".$password." ".$password_confirm;
+        $messages[] = "New passwords don't match ".$new_password." ".$new_password_confirm;
     } else {
         // new password validation
         if (!preg_match('/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/', $new_password)) {
             $ok = false;
-            $messages = 'New password must be at least 8 characters long and have 1 uppercase letter, 1 lowercase letter, 1 digit and one special character';
+            $messages[] = 'New password must be at least 8 characters long and have 1 uppercase letter, 1 lowercase letter, 1 digit and one special character';
         }
     }
 }
@@ -64,7 +64,7 @@ if ($ok) {
         $stmt->execute();
     } else {
         $ok = false;
-        $messages = 'db error';
+        $messages[] = 'db error';
     }
 
     // // alert user of change via email
@@ -74,6 +74,8 @@ if ($ok) {
     // $mail->Body    = "Your password was changed today at ".date('Y-m-d H:i:s')."\nIf this was not you please reset your password immediately";
 
     // $mail->send();
+
+    $messages[] = "Password sucsessfully changed";
 }
 
 echo json_encode(
