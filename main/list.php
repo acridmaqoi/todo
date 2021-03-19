@@ -31,7 +31,7 @@ require_once '../util/db_utils.php';
             <ul id="form_messages"></ul>
         </div>
 
-        <ul id="myUL">
+        <ul id="list">
 
         </ul>
     </div>
@@ -51,7 +51,7 @@ require_once '../util/db_utils.php';
                         id: "<?php $_SESSION['id'] ?>"
                     },
                     success: function(data) {
-                        $("#myUL").html(data);
+                        $("#list").html(data);
                     }
                 });
             }

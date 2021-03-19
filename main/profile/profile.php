@@ -1,6 +1,8 @@
 <?php
 require '../../controllers/auth.php';
-require '../../util/db_utils.php'
+require_once '../../util/account/get_account_details.php';
+
+$acc = new GetAccountDetails();
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +12,7 @@ require '../../util/db_utils.php'
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=get_username()?> - profile</title>
+    <title><?=$acc->get_username()?> - profile</title>
 </head>
 
 <body>
@@ -24,11 +26,11 @@ require '../../util/db_utils.php'
         <table>
             <tr>
                 <td>Username:</td>
-                <td><?=get_username()?></td>
+                <td><?=$acc->get_username()?></td>
             </tr>
             <tr>
                 <td>Email:</td>
-                <td><?=get_email()?></td>
+                <td><?=$acc->get_email()?></td>
             </tr>
         </table>
 

@@ -52,6 +52,7 @@ if ($ok && !$activated ) {
 
 // all checks are passed, so can login
 if ($ok) {
+	// set session variables
 	session_regenerate_id();
 	$_SESSION['loggedin'] = TRUE;
 	$_SESSION['id'] = $id;

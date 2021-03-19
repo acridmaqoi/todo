@@ -3,6 +3,7 @@
 require_once (__DIR__ . '/../../controllers/auth.php');
 require_once (__DIR__ . '/../../config/db.php');
 require_once (__DIR__ . '/../../config/email.php');
+require_once 'get_account_details.php';
 
 $ok = true;
 $messages = array();
@@ -32,7 +33,7 @@ if ($ok) {
         $stmt->execute();
         $stmt->store_result();
     
-        if (strcmp($password, $current_password) !== 0) {
+        if (password_verify($password, $current_password)) {
             $ok = false;
             $messages[] = 'Password incorrect';
         }
@@ -67,13 +68,15 @@ if ($ok) {
         $messages[] = 'db error';
     }
 
-    // // alert user of change via email
-    // $mail->addAddress($_SESSION['email'], 'User');
-    // $mail->isHTML(true);
-    // $mail->Subject = 'Your password has been changed';
-    // $mail->Body    = "Your password was changed today at ".date('Y-m-d H:i:s')."\nIf this was not you please reset your password immediately";
+    $acc = new GetAccountDetails();
+    
+    // alert user of change via email
+    $mail->addAddress($acc->get_email(), 'User');
+    $mail->isHTML(true);
+    $mail->Subject = 'Your password has been changed';
+    $mail->Body    = "Your password was changed today at ".date('Y-m-d H:i:s')."\nIf this was not you please reset your password immediately";
 
-    // $mail->send();
+    $mail->send();
 
     $messages[] = "Password sucsessfully changed";
 }
