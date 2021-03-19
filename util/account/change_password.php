@@ -1,85 +1,49 @@
 <?php
 
-require_once (__DIR__ . '/../../controllers/auth.php');
-require_once (__DIR__ . '/../../config/db.php');
-require_once (__DIR__ . '/../../config/email.php');
-require_once 'get_account_details.php';
+require_once '../../config/db.php';
+require_once '../../config/email.php';
+
+if (!isset($_POST['email'])) {
+    die('error');
+}
 
 $ok = true;
 $messages = array();
 
-$password             = $_POST['password'];
-$new_password         = $_POST['new_password'];
-$new_password_confirm = $_POST['new_password_confirm'];
+$email = $_POST['email'];
+$vkey = md5(time().$email);
 
-// make sure the submitted registration values are not empty
-if (empty($password)) {
+if (empty($email)) {
     $ok = false;
-    $messages[] = 'Password cannot be empty!';
-}
-if ($ok && empty($new_password)) {
-    $ok = false;
-    $messages[] = 'New password cannot be empty!';
-} else if ($ok && empty($new_password_confirm)) {
-    $ok = false;
-    $messages[] = 'Confirm new password cannot be empty!';
+    $messages[] = "Please enter a email";
 }
 
-// verify password
 if ($ok) {
-    if ($stmt = $con->prepare('SELECT password FROM accounts WHERE id = (?)')) {
-        $stmt->bind_param('i', $_SESSION['id']);
-        $stmt->bind_result($current_password);
+    if ($stmt = $con->prepare('UPDATE accounts SET password_code = (?) WHERE email = (?)')) {
+        $stmt->bind_param('ss', $vkey, $email);
         $stmt->execute();
-        $stmt->store_result();
     
-        if (password_verify($password, $current_password)) {
+        if ($stmt->affected_rows == 0) {
             $ok = false;
-            $messages[] = 'Password incorrect';
+            $messages[] = "No account with this email exists";
         }
     } else {
-        $ok = false;
-        $messages[] = 'db error';
+        die('db error');
     }
 }
 
-// check new passwords match
 if ($ok) {
-    if (strcmp($new_password, $new_password_confirm) != 0) {
-        $ok = false;
-        $messages[] = "New passwords don't match ".$new_password." ".$new_password_confirm;
-    } else {
-        // new password validation
-        if (!preg_match('/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/', $new_password)) {
-            $ok = false;
-            $messages[] = 'New password must be at least 8 characters long and have 1 uppercase letter, 1 lowercase letter, 1 digit and one special character';
-        }
-    }
-}
-
-// update password
-if ($ok) {
-    if ($stmt = $con->prepare('UPDATE accounts SET password = (?) WHERE id = (?)')) {
-        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $stmt->bind_param('si', $new_password, $_SESSION['id']);
-        $stmt->execute();
-    } else {
-        $ok = false;
-        $messages[] = 'db error';
-    }
-
-    $acc = new GetAccountDetails();
-    
-    // alert user of change via email
-    $mail->addAddress($acc->get_email(), 'User');
+    // send vkey via email
+    $mail->addAddress($email, 'User');
     $mail->isHTML(true);
-    $mail->Subject = 'Your password has been changed';
-    $mail->Body    = "Your password was changed today at ".date('Y-m-d H:i:s')."\nIf this was not you please reset your password immediately";
+    $mail->Subject = 'Change password';
+    $mail->Body    = "http://localhost/project-1/util/account/change_password_inc/verify.php?vkey=$vkey";
 
     $mail->send();
 
-    $messages[] = "Password sucsessfully changed";
+    $messages[] = 'Check your email for a verification link';
 }
+
 
 echo json_encode(
     array(
@@ -87,3 +51,7 @@ echo json_encode(
         'messages' => $messages
     )
 );
+
+
+
+

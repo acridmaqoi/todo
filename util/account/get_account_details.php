@@ -4,11 +4,11 @@ class GetAccountDetails {
     private $username;
     private $email;
 
-    public function __construct() {
+    public function __construct($id) {
         require 'C:\xampp\htdocs\project-1\config\db.php';
 
-        if ($stmt = $con->prepare('SELECT username, email FROM accounts WHERE id = ?')) {
-            $stmt->bind_param('i', $_SESSION['id']);
+        if ($stmt = $con->prepare('SELECT username, email FROM accounts WHERE id = (?)')) {
+            $stmt->bind_param('i', $id);
             $stmt->execute();
             $stmt->bind_result($this->username, $this->email);
             $stmt->fetch();

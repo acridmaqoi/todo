@@ -31,7 +31,7 @@ class SetEmail {
         //Content
         $mail->isHTML(true);
         $mail->Subject = 'Email verification';
-        $mail->Body    = "http://localhost/project-1/util/account/email/verify.php?vkey=$vkey";
+        $mail->Body    = "http://localhost/project-1/util/account/change_email_inc/verify.php?vkey=$vkey";
     
         $mail->send();
         // echo 'Check your email for a verification link.';

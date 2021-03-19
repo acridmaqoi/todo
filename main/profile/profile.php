@@ -2,7 +2,7 @@
 require '../../controllers/auth.php';
 require_once '../../util/account/get_account_details.php';
 
-$acc = new GetAccountDetails();
+$acc = new GetAccountDetails($_SESSION['id']);
 ?>
 
 <!DOCTYPE html>

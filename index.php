@@ -22,6 +22,7 @@
     
     <br>
     <a href="register.html">Create Account</a>
+    <a href="reset_password.html">Frogot password?</a>
 
     <script>
          // allows enter button to be used when submitting form

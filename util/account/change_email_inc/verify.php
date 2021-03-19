@@ -8,6 +8,8 @@ if(!isset($_GET['vkey'])) {
 
 $vkey = $_GET['vkey'];
 
+
+// TODO Change to prepared statement
 if (!($result_set = $con->query("SELECT activated, activation_code, pending_email FROM accounts WHERE activated = 0 AND activation_code = '$vkey' LIMIT 1"))) {
     die("SQL Error: ".$con->error);
 } 

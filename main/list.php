@@ -3,7 +3,9 @@
 require '../controllers/auth.php';
 
 require_once '../config/db.php';
-require_once '../util/db_utils.php';
+require_once '../util/account/get_account_details.php';
+
+$acc = new GetAccountDetails($_SESSION['id']);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +20,7 @@ require_once '../util/db_utils.php';
 
 <body>
     <nav class="navtop">
-        <a href="profile/profile.php"><?php echo get_username() ?></a>
+        <a href="profile/profile.php"><?=$acc->get_username()?></a>
         <a href="../util/account/logout.php">登出</a>
     </nav>
 

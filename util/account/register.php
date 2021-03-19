@@ -1,7 +1,7 @@
 <?php
 
 require '../../config/db.php';
-require 'email/set_email.php';
+require 'change_email_inc/set_email.php';
 
 $ok = true; // tracks if tests have passed
 $messages = array(); // error messages
