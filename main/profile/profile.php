@@ -109,10 +109,6 @@ $acc = new GetAccountDetails($_SESSION['id']);
         <p>Change password:</p>
 
         <div class="form">
-            <input id="password" placeholder="Password" spellcheck="false">
-            <input id="new_password" placeholder="New password">
-            <input id="new_password_confirm" placeholder="Confirm new password">
-
             <button id="add_btn" type="submit">Confirm</button>
             <ul id="password-form-messages"></ul>
         </div>
@@ -128,17 +124,13 @@ $acc = new GetAccountDetails($_SESSION['id']);
              $("#add_btn").on("click", function(e) {
                 e.preventDefault();
 
-                var password = $("#password").val();
-                var new_password = $("#new_password").val();
-                var new_password_confirm = $("#new_password_confirm").val();
+                var email = "<?php echo $acc->get_email() ?>"
 
                 $.ajax({
                     url: "../../util/account/change_password.php",
                     type: "POST",
                     data: {
-                        password: password,
-                        new_password: new_password,
-                        new_password_confirm: new_password_confirm
+                        email: email
                     },
                     success: function(data) {
                         $("#password-form-messages").empty();
