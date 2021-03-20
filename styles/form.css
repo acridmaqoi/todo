@@ -5,3 +5,27 @@ label, input {
 label {
     margin-bottom: 20px;
 }
+
+.login-box {
+    background: white;
+    width: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+.login-panel {
+    padding: 10px;
+    
+}
+
+
+
+
+
+.background {
+    background-image: url('https://i.pinimg.com/originals/32/b8/77/32b877ed4aa7778cc7d43ebb7d95a6f1.png');
+}
