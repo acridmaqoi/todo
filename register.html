@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="styles/form.css">
 	<title>Register</title>
 </head>
 
@@ -10,12 +11,21 @@
 	<div class="register">
 		<h1>Register</h1>
 		<div class="form">
-			<input id="username" placeholder="Username" spellcheck="false">
-			<input id="password" placeholder="Password" type='password'>
-			<input id="password_confirm" placeholder="Confirm password" type='password'>
-			<input id="email" placeholder="Email" spellcheck="false">
+			<label>
+				<input id="username" placeholder="Username" spellcheck="false">
+			</label>
+			<label>
+				<input id="password" placeholder="Password" type='password'>
+			</label>
+			<label>
+				<input id="password_confirm" placeholder="Confirm password" type='password'>
+			</label>
+			<label>
+				<input id="email" placeholder="Email" spellcheck="false">
+			</label>
+
 			<button id="btn-submit" type="submit">Confirm</button>
-			<ul id="form-messages"></ul>
+			<a id="form-messages"></a>
 		</div>
 
 		<script>

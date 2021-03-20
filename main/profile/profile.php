@@ -12,6 +12,7 @@ $acc = new GetAccountDetails($_SESSION['id']);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../styles/form.css">
     <title><?=$acc->get_username()?> - profile</title>
 </head>
 
@@ -20,8 +21,8 @@ $acc = new GetAccountDetails($_SESSION['id']);
         <a href="../list.php">home</a>
         <a href="../../util/account/logout.php">登出</a>
     </nav>
-
-    <div class="content">
+    <br>
+    <div class="account-details">
         <p>Your account details are below:</p>
         <table>
             <tr>
@@ -33,12 +34,21 @@ $acc = new GetAccountDetails($_SESSION['id']);
                 <td><?=$acc->get_email()?></td>
             </tr>
         </table>
+    </div>
+    <br>
+    <div class="change-email">
 
         <p>Change email address:</p>
 
         <div class="form">
-            <input id="email" placeholder="Email" spellcheck="false">
-            <input id="email_confirm" placeholder="Confirm email">
+            <label>
+                <input id="email" placeholder="Email" spellcheck="false">
+            </label>
+            <label>
+                <input id="email_confirm" placeholder="Confirm email">
+            </label>
+            
+            
             <button id="btn-submit" type="submit">Confirm</button>
             <ul id="form-messages"></ul>
         </div>
@@ -105,7 +115,10 @@ $acc = new GetAccountDetails($_SESSION['id']);
                 }
             }
         </script>
-
+    
+    </div>
+    <br>
+    <div class="change-password">
         <p>Change password:</p>
 
         <div class="form">

@@ -4,16 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
+    <link rel="stylesheet" href="styles/form.css">
+    <title>Login</title>
 </head>
 
 <body>
-    <h1>登录</h1>
+    <h1>Login</h1>
     <div class="form">
-        <input id="username" placeholder="Username" spellcheck="false">
-        <input id="password" placeholder="Password" type='password'>
+        <label>
+            <input id="username" placeholder="Username" spellcheck="false">
+        </label>
+        <label>
+            <input id="password" placeholder="Password" type='password'>
+        </label>
+
         <button id="btn-submit" type="submit" >Confirm</button>
-        <ul id="form-messages"></ul>
+        <a id="form-messages"></a>
+        
         <?php 
         if (isset($_GET["verify_email"])) {
             echo "Check your email for a verification link";
@@ -22,11 +29,12 @@
             echo "Your password has now been reset you can now login";
         }
         ?>
+
     </div>
     
     <br>
     <a href="register.html">Create Account</a>
-    <a href="reset_password.html">Frogot password?</a>
+    <a href="reset_password.html">Forgot password?</a>
 
     <script>
          // allows enter button to be used when submitting form
