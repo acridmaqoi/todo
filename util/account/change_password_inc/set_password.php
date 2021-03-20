@@ -57,6 +57,17 @@ if ($ok) {
     }
 }
 
+// clear password_code
+if ($ok) {
+    if ($stmt = $con->prepare('UPDATE accounts SET password_code = NULL WHERE id = (?)')) {
+        $stmt->bind_param('i', $_SESSION['id']);
+        $stmt->execute();
+    } else {
+        $ok = false;
+        $messages[] = 'db error';
+    }
+}
+
 // update password
 if ($ok) {
     if ($stmt = $con->prepare('UPDATE accounts SET password = (?) WHERE id = (?)')) {

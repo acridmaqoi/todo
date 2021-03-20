@@ -63,10 +63,15 @@ if ($stmt->num_rows > 0) {
                 $("#form-messages").empty();
                 // get response
                 parsed_data = jQuery.parseJSON(data);
-                parsed_data.messages.forEach((message) => {
-                    // display error messages
-                    $("#form-messages").append(message);
-                });
+                
+                if (parsed_data.ok) {
+                    location.href = '../../../index.php?password_reset'
+                } else {
+                    parsed_data.messages.forEach((message) => {
+                        // display error messages
+                        $("#form-messages").append(message);
+                    });    
+                }
             }
         });
     });    

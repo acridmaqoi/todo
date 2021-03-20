@@ -14,9 +14,13 @@
         <input id="password" placeholder="Password" type='password'>
         <button id="btn-submit" type="submit" >Confirm</button>
         <ul id="form-messages"></ul>
-        <?php if (isset($_GET["verify_email"])) {
+        <?php 
+        if (isset($_GET["verify_email"])) {
             echo "Check your email for a verification link";
-        } 
+        }
+        if (isset($_GET["password_reset"])) {
+            echo "Your password has now been reset you can now login";
+        }
         ?>
     </div>
     
