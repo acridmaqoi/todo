@@ -2,3 +2,7 @@ body {
     font-family: Tahoma;
     font-size: 13px;
 }
+
+ul {
+    list-style: none;
+}

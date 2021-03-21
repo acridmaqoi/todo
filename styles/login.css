@@ -2,7 +2,7 @@
     background-image: url('https://i.pinimg.com/originals/32/b8/77/32b877ed4aa7778cc7d43ebb7d95a6f1.png');
 }
 
-.login-box {
+.welcome-box {
     background: white;
     width: 250px;
     position: absolute;
@@ -12,7 +12,7 @@
     transform: translate(-50%, -50%);
 }
 
-.login-box .input {
+.welcome-box .input {
     height: 30px;
     line-height: 20px;
     border: 1px solid #DEDEDE;
@@ -27,7 +27,7 @@
     
 }
 
-.login-box .btn {
+.welcome-box .btn {
     display: inline-block;
     font-size: 14px;
     color: #333;
@@ -46,34 +46,48 @@
     outline: none;
 }
 
-.login-box .btn.btn-primary {
+.welcome-box .btn.btn-primary {
     background: #0084ff;
     color: #fff;
     border-color: #0084ff;
 }
 
-.login-box .btn.form-block {
+.welcome-box .btn.form-block {
     display: block;
     width: 100%;
     border-radius: 6px;
     font-size: 16px;
 }
 
-.login-panel {
+.welcome-panel {
     padding: 0 30px 15px 30px;
 }
 
-.login-panel .login-item .input {
+.welcome-panel .login-item .input {
     display: block;
     width: 100%;
     height: 30px;
     padding-left: 36px;
 }
 
+.welcome-box .welcome-hud li {
+    float: left;
+    width: 130px;
+    text-align: center;
+    position: relative;
+}
+
+.welcome-box .welcome-hud {
+    /* height: 78px;
+    line-height: 78px; */
+    padding: 30px;
+}
+
+
 .login-item {
     position: relative;
     height: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .login-options {
@@ -81,6 +95,10 @@
     line-height: 20px;
     margin-top: 10px;
     color: #666;
+}
+
+.form-messages {
+    margin-top: 10px;
 }
 
 
