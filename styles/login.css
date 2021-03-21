@@ -1,3 +1,6 @@
+.background {
+    background-image: url('https://i.pinimg.com/originals/32/b8/77/32b877ed4aa7778cc7d43ebb7d95a6f1.png');
+}
 
 .login-box {
     background: white;
@@ -5,20 +8,42 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 380px;
     transform: translate(-50%, -50%);
 }
 
-.login-item {
-    position: relative;
-    height: 10px;
-    margin-bottom: 30px;
+.login-box .input {
+    height: 30px;
+    line-height: 20px;
+    border: 1px solid #DEDEDE;
+    padding: 4px 10px;
+    color: #333;
+    background-color: #fff;
+    outline: none;
+    font-size: 14px;
+    border-radius: 0;
+    vertical-align: middle;
+    box-sizing: border-box;
+    
 }
 
-.login-options {
-    text-align: center;
+.login-box .btn {
+    display: inline-block;
+    font-size: 14px;
+    color: #333;
+    min-width: 80px;
+    height: 30px;
     line-height: 20px;
-    margin-top: 10px;
-    color: #666;
+    padding: 4px 10px;
+    border: 1px solid #DEDEDE;
+    border-radius: 6px;
+    background-color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
 }
 
 .login-box .btn.btn-primary {
@@ -38,53 +63,24 @@
     padding: 0 30px 15px 30px;
 }
 
-.login-box .input {
-    height: 30px;
-    line-height: 20px;
-    border: 1px solid #DEDEDE;
-    padding: 4px 10px;
-    color: #333;
-    background-color: #fff;
-    color: #333;
-    outline: none;
-    font-size: 14px;
-    border-radius: 0;
-    vertical-align: middle;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-}
-
-.login-box .btn.form-block {
+.login-panel .login-item .input {
     display: block;
     width: 100%;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.login-box .btn {
-    display: inline-block;
-    font-size: 14px;
-    color: #333;
-    min-width: 80px;
     height: 30px;
-    line-height: 20px;
-    padding: 4px 10px;
-    border: 1px solid #DEDEDE;
-    border-radius: 6px;
-    background-color: #fff;
+    padding-left: 36px;
+}
+
+.login-item {
+    position: relative;
+    height: 10px;
+    margin-bottom: 30px;
+}
+
+.login-options {
     text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
+    line-height: 20px;
+    margin-top: 10px;
+    color: #666;
 }
 
 
@@ -93,6 +89,7 @@
 
 
 
-.background {
-    background-image: url('https://i.pinimg.com/originals/32/b8/77/32b877ed4aa7778cc7d43ebb7d95a6f1.png');
-}
+
+
+
+

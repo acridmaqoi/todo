@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/login.css">
-
     <title>Login</title>
 </head>
 
@@ -15,7 +13,7 @@
     <div class="login-box">
         <div class="login-panel" style="display: block;">
             <div class="form">
-                <h1>Login</h1>
+                <h2>Login</h2>
                 <div class="login-item">
                     <label for="user" class="item-label"><i class="icon icon-user"></i></label>
                     <input id="username" class="input" spellcheck="false" placeholder="Username">
