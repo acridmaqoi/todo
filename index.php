@@ -4,43 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/form.css">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/login.css">
 
     <title>Login</title>
 </head>
 
 <body class="background">
-    <div class="login-box" >
-        <div class="login-panel">
-            <div class="form" class="pure-form">
+    <div class="login-box">
+        <div class="login-panel" style="display: block;">
+            <div class="form">
                 <h1>Login</h1>
-
-                <label>
-                    <input id="username" placeholder="Username" spellcheck="false">
-                </label>
-                <label>
-                    <input id="password" placeholder="Password" type='password'>
-                </label>
-
-                <button id="btn-submit" type="submit">Confirm</button>
-                <a id="form-messages"></a>
-
-                <?php
-                if (isset($_GET["verify_email"])) {
-                    echo "Check your email for a verification link";
-                }
-                if (isset($_GET["password_reset"])) {
-                    echo "Your password has now been reset you can now login";
-                }
-                ?>
-
+                <div class="login-item">
+                    <label for="user" class="item-label"><i class="icon icon-user"></i></label>
+                    <input id="username" class="input" spellcheck="false" placeholder="Username">
+                </div>
+                <div class="login-item">
+                    <label for="user" class="item-label"><i class="icon icon-user"></i></label>
+                    <input id="password" class="input" type='password' placeholder="Password">
+                </div>
+                <div class="login-button">
+                    <button id="btn-submit" class="btn btn-primary form-block" type="submit">Confirm</button>
+                </div>
+                <div id="form-messages" class="form-messages">
+                    <?php
+                    if (isset($_GET["verify_email"])) {
+                        echo "Check your email for a verification link";
+                    }
+                    if (isset($_GET["password_reset"])) {
+                        echo "Your password has now been reset you can now login";
+                    }
+                    ?>
+                </div>
+                <div class="login-options">
+                    <a href="register.html">Create Account</a>
+                    |
+                    <a href="reset_password.html">Forgot password?</a>
+                </div>
             </div>
-
-            <br>
-            <a href="register.html">Create Account</a>
-            <a href="reset_password.html">Forgot password?</a>
-
         </div>
     </div>
         
