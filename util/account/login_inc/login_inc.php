@@ -1,6 +1,7 @@
 <?php
 
 function login_user($id, $remember) {
+
 	require(__DIR__ . '../../../../config/db.php');
 
     // set session variables

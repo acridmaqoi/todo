@@ -99,7 +99,7 @@ if (isset($_SESSION['logged_in'])) {
                 }
             };
 
-            const requestData = `username=${form.username.value}&password=${form.password.value}&remember=${form.remember.value}`;
+            const requestData = `username=${form.username.value}&password=${form.password.value}&remember=${form.remember.checked}`;
 
             // send to server
             request.open('post', 'util/account/login.php');

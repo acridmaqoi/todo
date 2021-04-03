@@ -53,9 +53,12 @@ if ($ok && !$activated ) {
 
 // all checks are passed, so can login
 if ($ok) {
-
-	// echo $id;
-	login_user($id, $_POST['remember']);
+	if ($_POST['remember'] == 'true') {
+		login_user($id, true);
+	} else {
+		login_user($id, false);
+	}
+	
 } 
 
 echo json_encode(

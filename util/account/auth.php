@@ -21,7 +21,7 @@ function auth($redirect) {
 				$stmt->fetch();
 				
 				if (login_user($id, true)) {
-					header('Location: http://localhost/project-1/main/list.php?id='.$_COOKIE['login_token']);
+					header('Location: http://localhost/project-1/main/list.php');
 					
 				}
 			}
