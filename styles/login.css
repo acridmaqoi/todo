@@ -83,11 +83,16 @@
     padding: 30px;
 }
 
-
 .login-item {
     position: relative;
     height: 10px;
     margin-bottom: 35px;
+}
+
+.login-checkbox {
+    margin-bottom: 10px;
+    margin-top: -5px;
+    
 }
 
 .login-options {
