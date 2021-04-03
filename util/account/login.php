@@ -1,6 +1,7 @@
 <?php
 
-require '../../config/db.php';
+require_once '../../config/db.php';
+require_once './login_inc/login_inc.php';
 
 $ok = true; // tracks if tests have passed
 $messages = array(); // error messages
@@ -52,10 +53,9 @@ if ($ok && !$activated ) {
 
 // all checks are passed, so can login
 if ($ok) {
-	// set session variables
-	session_regenerate_id();
-	$_SESSION['loggedin'] = TRUE;
-	$_SESSION['id'] = $id;
+
+	// echo $id;
+	login_user($id, $_POST['remember']);
 } 
 
 echo json_encode(

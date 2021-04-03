@@ -1,5 +1,7 @@
 <?php
-require '../../controllers/auth.php';
+require '../../util/account/auth.php';
+auth(true);
+
 require_once '../../util/account/get_account_details.php';
 
 $acc = new GetAccountDetails($_SESSION['id']);

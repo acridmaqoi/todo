@@ -1,3 +1,20 @@
+<?php
+
+require_once 'util/account/auth.php';
+auth(false);
+
+if (isset($_SESSION['logged_in'])) {
+
+    echo "logged in";
+    // header('Location: http://localhost/project-1/main/list.php');
+} else {
+    echo "logged out";
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +47,14 @@
                     <label for="user" class="item-label"><i class="icon icon-user"></i></label>
                     <input id="password" class="input" type='password' placeholder="Password">
                 </div>
+                <div class="login-checkbox">
+                    <input id="remember" type="checkbox" style="float: left; margin-top: 1.8px;"></input>
+                    <div style="margin-left: 25px;">Stay logged-in</div>
+                </div>
                 <div class="login-button">
                     <button id="btn-submit" class="btn btn-primary form-block" type="submit">Confirm</button>
                 </div>
+                
                 <div id="form-messages" class="form-messages"></div>
                 <div class="login-options">
                     <a href="register.html">Create Account</a>
@@ -54,6 +76,7 @@
         const form = {
             username: document.getElementById('username'),
             password: document.getElementById('password'),
+            remember: document.getElementById('remember'),
             submit: document.getElementById('btn-submit'),
             messages: document.getElementById('form-messages')
         };
@@ -76,7 +99,7 @@
                 }
             };
 
-            const requestData = `username=${form.username.value}&password=${form.password.value}`;
+            const requestData = `username=${form.username.value}&password=${form.password.value}&remember=${form.remember.value}`;
 
             // send to server
             request.open('post', 'util/account/login.php');
