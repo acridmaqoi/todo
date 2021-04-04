@@ -34,7 +34,6 @@ class SetEmail {
         $mail->Body    = "http://localhost/project-1/util/account/change_email_inc/verify.php?vkey=$vkey";
     
         $mail->send();
-        // echo 'Check your email for a verification link.';
     }
 }
 

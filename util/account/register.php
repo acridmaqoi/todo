@@ -70,35 +70,7 @@ if ($stmt = $con->prepare('SELECT id FROM accounts WHERE email = ?')) {
 }
 
 if ($ok) {
-	//insert new account into db
-	if ($stmt = $con->prepare('INSERT INTO accounts (username, password, pending_email, activation_code, activated) VALUES (?, ?, ?, ?, ?)')) {
-		// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-		$zero = 0;
-		$stmt->bind_param('ssssi', $_POST['username'], $password, $_POST['email'], $vkey, $zero);
-		$stmt->execute();
-	} else {
-		// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-		// echo 'Could not prepare statement!';
-		die();
-	}
-
-
-	// get session id
-	if ($stmt = $con->prepare('SELECT id FROM accounts WHERE username = (?)')) {
-		$stmt->bind_param('s', $_POST['username']);
-		$stmt->execute();
-		$stmt->store_result();
-		if ($stmt->num_rows() > 0) {
-			$stmt->bind_result($id);
-			$stmt->fetch();
-		} else {
-			die('db error');
-		}
-	}
-
-	$set_email = new SetEmail($_POST['email'], $id);
-	//echo "Check your email for a verification link";
+	
 }
 	
 $con->close();

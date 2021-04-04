@@ -11,8 +11,6 @@ if (isset($_SESSION['logged_in'])) {
     echo "logged out";
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +19,14 @@ if (isset($_SESSION['logged_in'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com">
+
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/login.css">
+
     <title>Login</title>
 </head>
 
@@ -54,7 +57,10 @@ if (isset($_SESSION['logged_in'])) {
                 <div class="login-button">
                     <button id="btn-submit" class="btn btn-primary form-block" type="submit">Confirm</button>
                 </div>
-                
+
+                <div class="g-signin2" data-redirecturi="http://localhost/main/list.php" data-onsuccess="onSignIn"></div>
+
+
                 <div id="form-messages" class="form-messages"></div>
                 <div class="login-options">
                     <a href="register.html">Create Account</a>
@@ -64,8 +70,35 @@ if (isset($_SESSION['logged_in'])) {
             </div>
         </div>
     </div>
-        
+
     <script>
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            var id_token = googleUser.getAuthResponse().id_token;
+
+            console.log(id_token);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'util/account/thirdparty/google.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                console.log('Signed in as: ' + xhr.responseText);
+            };
+            xhr.send('idtoken=' + id_token);
+
+            xhr.onload = () => {
+                location.href = 'main/list.php';
+            }
+
+        }
+
+
         // allows enter button to be used when submitting form
         document.querySelector("#password").addEventListener("keyup", event => {
             if (event.key !== "Enter") return;
@@ -127,19 +160,22 @@ if (isset($_SESSION['logged_in'])) {
                 });
             }
         }
+    </script>
 
+
+    <?php
+    if (isset($_GET["verify_email"])) { ?>
+        <script>
+            $("#form-messages").append("Check your email for a verification link");
         </script>
+    <?php }
+    if (isset($_GET["password_reset"])) { ?>
+        <script>
+            $("#form-messages").append("Your password has now been reset you can now login");
+        </script>
+    <?php } ?>
 
 
-        <?php
-        if (isset($_GET["verify_email"])) { ?>
-            <script>$("#form-messages").append("Check your email for a verification link");</script>    
-        <?php }
-        if (isset($_GET["password_reset"])) { ?>
-            <script>$("#form-messages").append("Your password has now been reset you can now login");</script>
-        <?php } ?>
-
-    
 
     </div>
 
@@ -149,8 +185,3 @@ if (isset($_SESSION['logged_in'])) {
 </body>
 
 </html>
-
-
-
-
-
