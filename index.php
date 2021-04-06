@@ -1,7 +1,16 @@
 <?php
 
 require_once 'util/account/auth.php';
+
+include_once 'autoloader.php';
 auth(false);
+
+if (isset($_GET['code'])) {
+	$access_token = get_access_token($_GET['code']);
+	echo '<pre>';
+	print_r($access_token);
+	die();
+}
 
 if (isset($_SESSION['logged_in'])) {
 
@@ -24,6 +33,11 @@ if (isset($_SESSION['logged_in'])) {
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com">
 
+    <script async defer crossorigin="anonymous" 
+        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&autoLogAppEvents=1&version=v10.0&appId=3788291791291201" nonce="ORgkv8Zq"></script>
+
+
+
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/login.css">
 
@@ -31,6 +45,34 @@ if (isset($_SESSION['logged_in'])) {
 </head>
 
 <body class="background">
+    
+
+
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '{3788291791291201}',
+                cookie: true,
+                xfbml: true,
+                version: '{v10.0}'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <div class="welcome-box">
         <div class="welcome-panel" style="display: block;">
             <ul class="welcome-hud">
@@ -60,6 +102,19 @@ if (isset($_SESSION['logged_in'])) {
 
                 <div class="g-signin2" data-redirecturi="http://localhost/main/list.php" data-onsuccess="onSignIn"></div>
 
+                <div class="login-item">
+                    <a href="<?php echo get_facebook_login_url(); ?>" class="a-fb">
+                        <div class="fb-button-container">
+                            Login with Facebook
+                        </div>
+                    </a>
+                </div>
+
+                
+
+                              
+
+
 
                 <div id="form-messages" class="form-messages"></div>
                 <div class="login-options">
@@ -72,7 +127,7 @@ if (isset($_SESSION['logged_in'])) {
     </div>
 
     <script>
-
+    
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
