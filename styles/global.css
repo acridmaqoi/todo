@@ -7,3 +7,22 @@ ul {
     list-style: none;
 }
 
+.mb-6 {
+    margin-bottom: 24px;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.ml-4 {
+    margin-left: 16px;
+}

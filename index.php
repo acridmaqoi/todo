@@ -14,7 +14,7 @@ if (isset($_GET['state']) && FB_APP_STATE == $_GET['state']) {
 
 if (isset($_SESSION['logged_in'])) {
     echo "logged in";
-    // header('Location: http://localhost/project-1/main/list.php');
+    header('Location: http://localhost/project-1/main/list.php');
 } else {
     echo "logged out";
 }
@@ -29,13 +29,7 @@ if (isset($_SESSION['logged_in'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com">
-
-    <script async defer crossorigin="anonymous" 
-        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&autoLogAppEvents=1&version=v10.0&appId=3788291791291201" nonce="ORgkv8Zq"></script>
-
-
+    <script src="https://apis.google.com/js/api:client.js"></script>
 
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/login.css">
@@ -43,35 +37,9 @@ if (isset($_SESSION['logged_in'])) {
     <title>Login</title>
 </head>
 
+
+
 <body class="background">
-    
-
-
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: '{3788291791291201}',
-                cookie: true,
-                xfbml: true,
-                version: '{v10.0}'
-            });
-
-            FB.AppEvents.logPageView();
-
-        };
-
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-
     <div class="welcome-box">
         <div class="welcome-panel" style="display: block;">
             <ul class="welcome-hud">
@@ -95,48 +63,102 @@ if (isset($_SESSION['logged_in'])) {
                     <input id="remember" type="checkbox" style="float: left; margin-top: 1.8px;"></input>
                     <div style="margin-left: 25px;">Stay logged-in</div>
                 </div>
-                <div class="login-button">
+                <div class="login-button login-item">
                     <button id="btn-submit" class="btn btn-primary form-block" type="submit">Confirm</button>
                 </div>
 
                 <div class="g-signin2" data-redirecturi="http://localhost/main/list.php" data-onsuccess="onSignIn"></div>
 
-                <div class="login-item">
-                    <a href="<?php echo get_facebook_login_url(); ?>" class="a-fb">
-                        <div class="fb-button-container">
-                            Login with Facebook
+                <div id="form-messages" class="form-messages"></div>
+
+
+
+                <div class="flex justify-center items-center mb-6">
+                    <a href="<?php echo get_facebook_login_url(); ?>">
+                        <div class="">
+                            <style>
+                                .facebookButt {
+                                    background-color: #1877F2;
+                                }
+
+                                .facebookButt:hover {
+                                    background-color: #1E6CD2;
+                                }
+
+                                .facebookSvg:hover,
+                                .facebookButt:hover .facebookSvg {
+                                    fill: #1E6CD2;
+                                }
+                            </style>
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="#1877F2" xmlns="http://www.w3.org/2000/svg" class="facebookSvg cursor-pointer">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M40 20.122C40 9.01 31.046 0 20 0S0 9.009 0 20.122C0 30.166 7.314 38.49 16.875 40V25.939h-5.078v-5.817h5.078V15.69c0-5.043 2.986-7.829 7.554-7.829 2.189 0 4.477.393 4.477.393v4.952h-2.522c-2.484 0-3.259 1.551-3.259 3.143v3.774h5.547l-.887 5.817h-4.66V40C32.686 38.49 40 30.166 40 20.122z"></path>
+                            </svg>
                         </div>
                     </a>
+
+                    <div id="google-signin" style="cursor: pointer" class="ml-4">
+                        <style>
+                            .googleButt {
+                                background-color: #1877F2;
+
+                            }
+
+                            .googleButt:hover {
+                                background-color: #bdbdbd;
+                            }
+
+                            .googleSvg:hover,
+                            .googleButt:hover .googleSvg {
+                                fill: #bdbdbd;
+                            }
+                        </style>
+
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="#d2d2d2" xmlns="http://www.w3.org/2000/svg" class="googleSvg cursor-pointer">
+                            <circle cx="50%" cy="50%" r="20" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20 13.867c1.878 0 3.145.81 3.867 1.489l2.822-2.756C24.956 10.989 22.7 10 20 10a9.993 9.993 0 00-8.933 5.511l3.233 2.511c.811-2.41 3.056-4.155 5.7-4.155z" fill="#EA4335" stroke="none"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.6 20.222c0-.822-.067-1.422-.211-2.044H20v3.71h5.511c-.111.923-.711 2.312-2.044 3.245l3.155 2.445c1.89-1.745 2.978-4.311 2.978-7.356z" fill="#4285F4" stroke="none"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.311 21.978A6.156 6.156 0 0113.978 20c0-.689.122-1.355.322-1.978l-3.233-2.51A10.009 10.009 0 0010 20c0 1.611.389 3.133 1.067 4.489l3.244-2.511z" fill="#FBBC05" stroke="none"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20 30c2.7 0 4.967-.889 6.622-2.422l-3.155-2.445c-.845.59-1.978 1-3.467 1-2.645 0-4.889-1.744-5.689-4.155l-3.233 2.51C12.722 27.757 16.088 30 20 30z" fill="#34A853" stroke="none"></path>
+                        </svg>
+                    </div>
                 </div>
 
-                
 
-                              
-
-
-
-                <div id="form-messages" class="form-messages"></div>
-                <div class="login-options">
-                    <a href="register.html">Create Account</a>
-                    |
-                    <a href="reset_password.html">Forgot password?</a>
-                </div>
+            </div>
+            
+            <div class="login-options">
+                <a href="register.html">Create Account</a>
+                |
+                <a href="reset_password.html">Forgot password?</a>
             </div>
         </div>
     </div>
+    </div>
 
     <script>
-    
+        gapi.load('auth2', function() {
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: '415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email'
+                //scope: 'additional_scope'
+            });
+            attachSignin(document.getElementById('google-signin'));
+        });
+
+        function attachSignin(element) {
+            console.log(element.id);
+            auth2.attachClickHandler(element, {},
+                function(googleUser) {
+                    onSignIn(googleUser);
+                },
+            );
+        }
+
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
             var id_token = googleUser.getAuthResponse().id_token;
-
-            console.log(id_token);
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'util/account/thirdparty/google_login.php');
@@ -151,8 +173,9 @@ if (isset($_SESSION['logged_in'])) {
             }
 
         }
+    </script>
 
-
+    <script>
         // allows enter button to be used when submitting form
         document.querySelector("#password").addEventListener("keyup", event => {
             if (event.key !== "Enter") return;

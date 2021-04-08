@@ -24,7 +24,6 @@
     border-radius: 0;
     vertical-align: middle;
     box-sizing: border-box;
-    
 }
 
 .welcome-box .btn {
@@ -92,7 +91,6 @@
 .login-checkbox {
     margin-bottom: 10px;
     margin-top: -5px;
-    
 }
 
 .login-options {
@@ -104,15 +102,5 @@
 
 .form-messages {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
