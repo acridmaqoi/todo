@@ -2,7 +2,7 @@
 
 function auth($redirect) {
 
-	require(__DIR__ . '/../../config/db.php');
+	require(__DIR__ . '../../db.php');
 	require('login_inc/login_inc.php');
 
 	

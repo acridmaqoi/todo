@@ -2,8 +2,9 @@
 
 function register_user($user, $password, $email, $activated) {
 
-    require '../../../config/db.php';
-    require '../change_email_inc/set_email.php';
+	require __DIR__ . '../../../../autoloader.php';
+    require __DIR__ . '../../../config/db.php';
+    require __DIR__ . '../change_email_inc/set_email.php';
 
     //insert new account into db
 	if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, pending_email, activation_code, activated) VALUES (?, ?, ?, ?, ?, ?)')) {

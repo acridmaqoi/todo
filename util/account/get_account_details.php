@@ -5,7 +5,7 @@ class GetAccountDetails {
     private $email;
 
     public function __construct($id) {
-        require 'C:\xampp\htdocs\project-1\config\db.php';
+        require __DIR__ . '../../../util/db.php';
 
         if ($stmt = $con->prepare('SELECT username, email FROM accounts WHERE id = (?)')) {
             $stmt->bind_param('i', $id);

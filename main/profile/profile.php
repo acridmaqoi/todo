@@ -1,8 +1,9 @@
 <?php
-require '../../util/account/auth.php';
-auth(true);
 
-require_once '../../util/account/get_account_details.php';
+require __DIR__ . '../../../util/account/auth.php';
+require __DIR__ . '../../../util/account/get_account_details.php';
+
+auth(true);
 
 $acc = new GetAccountDetails($_SESSION['id']);
 ?>

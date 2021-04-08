@@ -1,6 +1,7 @@
 <?php
 
-require_once '../../config/db.php';
+require __DIR__ . '../../../autoloader.php';
+require __DIR__ . '../../../util/db.php';
 
 // destory remember-acc cookie
 if ($stmt = $con->prepare('UPDATE accounts SET login_token = NULL WHERE id = (?)')) {
@@ -28,7 +29,7 @@ session_destroy();
     <script src="https://apis.google.com/js/platform.js"></script>
     <meta name="google-signin-client_id" content="415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com">
 
-    <title>Document</title>
+    <title>logging out...</title>
 </head>
 
 <body>
@@ -40,10 +41,26 @@ session_destroy();
                 client_id: '415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com'
             }).then(auth2 => {
                 var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(auth2.disconnect().then(function() {
-                    console.log('User signed out.');
+
+
+                if (auth2.isSignedIn.get()) {
+                    auth2.signOut().then(auth2.disconnect().then(function() {
+                        console.log('User signed out.');
+                        window.location.href = "http://localhost/project-1";
+                    }));
+                } else {
                     window.location.href = "http://localhost/project-1";
-                }));
+                }
+            })
+
+            gapi.auth2.init({
+                client_id: '415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com'
+            }).then(auth2 => {
+                var auth2 = gapi.auth2.getAuthInstance();
+                user = auth2.currentUser.get();
+                debugger;
+                // console.log(JSON.stringify(user));
+                console.log(user);
             })
         });
     </script>
@@ -51,7 +68,3 @@ session_destroy();
 </body>
 
 </html>
-
-
-
-

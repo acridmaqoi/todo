@@ -1,10 +1,11 @@
 <?php
 
-require '../util/account/auth.php';
-auth(true);
+require __DIR__ . '../../autoloader.php';
+require __DIR__ . '../../util/account/auth.php';
+require __DIR__ . '../../util/db.php';
+require __DIR__ . '../../util/account/get_account_details.php';
 
-require_once '../config/db.php';
-require_once '../util/account/get_account_details.php';
+auth(true);
 
 $acc = new GetAccountDetails($_SESSION['id']);
 

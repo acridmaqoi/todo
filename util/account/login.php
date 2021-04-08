@@ -3,6 +3,8 @@
 require_once '../../config/db.php';
 require_once './login_inc/login_inc.php';
 
+require '../../autoloader.php';
+
 $ok = true; // tracks if tests have passed
 $messages = array(); // error messages
 

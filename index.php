@@ -1,19 +1,18 @@
 <?php
 
-require_once 'util/account/auth.php';
+require __DIR__ . '/autoloader.php';
+require __DIR__ . '/util/account/auth.php';
+require __DIR__ . '/lib/Facebook/facebook_api.php';
+require __DIR__ . '/util/account/thirdparty/facebook_login.php';
 
-include_once 'autoloader.php';
 auth(false);
 
-if (isset($_GET['code'])) {
-	$access_token = get_access_token($_GET['code']);
-	echo '<pre>';
-	print_r($access_token);
-	die();
+if (isset($_GET['state']) && FB_APP_STATE == $_GET['state']) {
+    facebook_login($_GET);
+    header('location: http://localhost/project-1/main/list.php');
 }
 
 if (isset($_SESSION['logged_in'])) {
-
     echo "logged in";
     // header('Location: http://localhost/project-1/main/list.php');
 } else {
@@ -140,7 +139,7 @@ if (isset($_SESSION['logged_in'])) {
             console.log(id_token);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'util/account/thirdparty/google.php');
+            xhr.open('POST', 'util/account/thirdparty/google_login.php');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
                 console.log('Signed in as: ' + xhr.responseText);

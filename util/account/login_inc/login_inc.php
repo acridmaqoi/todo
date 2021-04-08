@@ -2,7 +2,8 @@
 
 function login_user($id, $remember) {
 
-	require(__DIR__ . '../../../../config/db.php');
+	require __DIR__ . '../../../../autoloader.php';
+	require __DIR__ . '../../../db.php';
 
     // set session variables
 	session_regenerate_id();
