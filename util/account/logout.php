@@ -58,7 +58,6 @@ session_destroy();
             }).then(auth2 => {
                 var auth2 = gapi.auth2.getAuthInstance();
                 user = auth2.currentUser.get();
-                debugger;
                 // console.log(JSON.stringify(user));
                 console.log(user);
             })

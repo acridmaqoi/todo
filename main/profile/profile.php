@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__ . '../../../autoloader.php';
 require __DIR__ . '../../../util/account/auth.php';
 require __DIR__ . '../../../util/account/get_account_details.php';
 

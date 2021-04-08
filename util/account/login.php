@@ -1,7 +1,8 @@
 <?php
 
-require_once '../../config/db.php';
-require_once './login_inc/login_inc.php';
+require __DIR__ . '../../../autoloader.php';
+require __DIR__ . '../../../util/db.php';
+require __DIR__ . '../../account/login_inc/login_inc.php';
 
 require '../../autoloader.php';
 
