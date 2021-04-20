@@ -8,3 +8,4 @@ if(!isset($_SESSION)) {
 
 require_once __DIR__ . (PHP_OS == 'Linux' ? ' ' : '/') . 'config/config.php';
 require_once __DIR__ . '/defines.php';
+
