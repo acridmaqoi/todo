@@ -20,21 +20,21 @@ echo 'account id: ' . $_SESSION['id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="list.css">
-    <title>清单</title>
+    <title>list</title>
 </head>
 
 <body>
     <nav class="navtop">
         <a href="profile/profile.php"><?=$acc->get_username()?></a>
-        <a href="../util/account/logout.php">登出</a>
+        <a href="../util/account/logout.php">logout</a>
     </nav>
 
     <h1>Tasks</h1>
 
     <div class="content">
         <div class="form">
-            <input id="task_title" type="text" placeholder="标题...">
-            <button id="add_btn" type="submit" class="addBtn">加</button>
+            <input id="task_title" type="text" placeholder="title...">
+            <button id="add_btn" type="submit" class="addBtn">add</button>
             <ul id="form_messages"></ul>
         </div>
 
