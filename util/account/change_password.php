@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../config/db.php';
-require_once '../../config/email.php';
+require __DIR__ . '../../../autoloader.php';
+require __DIR__ . '../../db.php';
 
 if (!isset($_POST['email'])) {
     die('error');

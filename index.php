@@ -43,12 +43,8 @@ if (isset($_SESSION['logged_in'])) {
     <div class="welcome-box">
         <div class="welcome-panel" style="display: block;">
             <ul class="welcome-hud">
-                <li>
-                    <a href="">Login</a>
-                </li>
-                <li>
-                    <a href="">Third-party</a>
-                </li>
+                <h2>Login</h2>
+                
             </ul>
             <div class="login-form">
                 <div class="login-item">

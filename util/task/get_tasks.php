@@ -36,4 +36,4 @@ if ($stmt->num_rows() > 0) {
 </li>
  
 <?php }
-} ?>
+} else { echo 'no tasks to show'; } ?>

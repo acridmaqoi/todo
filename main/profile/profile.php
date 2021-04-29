@@ -23,7 +23,7 @@ $acc = new GetAccountDetails($_SESSION['id']);
 <body>
     <nav class="navtop">
         <a href="../list.php">home</a>
-        <a href="../../util/account/logout.php">登出</a>
+        <a href="../../util/account/logout.php">logout</a>
     </nav>
     <br>
     <div class="account-details">

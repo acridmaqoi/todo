@@ -1,6 +1,8 @@
 <?php
 
-require_once "../../config/db.php";
+require __DIR__ . '../../../autoloader.php';
+require __DIR__ . '../../../util/account/auth.php';
+require __DIR__ . '../../../util/db.php';
 
 $ok = true;
 $messages = array();
@@ -18,10 +20,11 @@ if (empty($title)) {
     $messages[] = 'Enter a task';
 }
 
+echo $_SESSION['id'];
 
 if ($ok) {
     // insert task into db
-    if ($stmt = $con->prepare('INSERT INTO TASKS (title, user_id) VALUES (?, ?)')) {
+    if ($stmt = $con->prepare('INSERT INTO tasks (title, user_id) VALUES (?, ?)')) {
         $stmt->bind_param('si', $title, $_SESSION["id"]);
         $stmt->execute();
     } else {
@@ -29,7 +32,6 @@ if ($ok) {
         $messages[] = 'An unexpected error occoured please try again later';
     }
 }
-
 
 echo json_encode(
     array(

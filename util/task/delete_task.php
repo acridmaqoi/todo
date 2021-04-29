@@ -1,6 +1,8 @@
 <?php
 
-require_once "../../config/db.php";
+require __DIR__ . '../../../autoloader.php';
+require __DIR__ . '../../../util/account/auth.php';
+require __DIR__ . '../../../util/db.php';
 
 $ok = true;
 $messages = array();

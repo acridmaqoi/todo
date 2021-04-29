@@ -1,6 +1,7 @@
 <?php
 
-require_once '../../../config/db.php';
+require __DIR__ . '../../../../autoloader.php';
+require __DIR__ . '../../../db.php';
 
 if(!isset($_GET['vkey'])) {
     die("no vkey provided");

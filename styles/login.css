@@ -69,11 +69,10 @@
     padding-left: 36px;
 }
 
-.welcome-box .welcome-hud li {
-    float: left;
-    width: 130px;
+.welcome-box .welcome-hud {
+
     text-align: center;
-    position: relative;
+    
 }
 
 .welcome-box .welcome-hud {

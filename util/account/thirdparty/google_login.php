@@ -5,8 +5,6 @@ require __DIR__ . '../../login_inc/login_inc.php';
 require __DIR__ . '../../register_inc/register_inc.php';
 require __DIR__ . '../../../../lib/Google/vendor/autoload.php';
 
-echo 'here';
-
 $CLIENT_ID = "415251980402-68khrcjsbsmncrutho9fismb3k09965i.apps.googleusercontent.com";
 $id_token = $_POST['idtoken'];
 

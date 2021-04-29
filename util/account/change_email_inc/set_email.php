@@ -8,8 +8,8 @@ class SetEmail {
     }
 
     private function register_email($email, $acc_id) {
-        require (__DIR__ . '/../../../config/db.php');
-        require_once (__DIR__ . '/../../../lib/PHPMailer/vendor/autoload.php');
+        require __DIR__ . '../../../db.php';
+        require __DIR__ . '/../../../lib/PHPMailer/vendor/autoload.php';
     
         // generate email verification code
         $vkey = md5(time().$email);
@@ -25,7 +25,7 @@ class SetEmail {
     }
     
     private function send_verification($email, $vkey) {
-        require_once (__DIR__ . '/../../../config/email.php');
+        require __DIR__ . '../../../../autoloader.php';
     
         $mail->addAddress($email, 'User');
         //Content
